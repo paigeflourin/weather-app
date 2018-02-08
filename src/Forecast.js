@@ -70,7 +70,7 @@ class Forecast extends React.Component {
 
   render() {
     const { city, forecast } = this.state;
-
+    
     return this.state.loading ?
       <h1 className={appClasses.forecastHeader}>Loading...</h1> :
       (
