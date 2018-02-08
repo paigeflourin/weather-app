@@ -54,7 +54,7 @@ class Forecast extends React.Component {
   fetchWeather = (city) => {
     this.setState({ city, loading: true });
     const cityHTTP = city.split(' ').join('%20');
-    fetch(`${baseURL}forecast/daily?q=${cityHTTP}&type=accurate&APPID=${APIKEY}&cnt=5`)
+    fetch(`${baseURL}forecast?q=${cityHTTP}&APPID=${APIKEY}`)
       .then(response => response.json())
       .then((json) => {
         this.setState({ forecast: json.list, loading: false });
