@@ -1,0 +1,44 @@
+import React, { Component } from 'react';
+import { BrowserRouter, Route } from 'react-router-dom';
+
+import Detail from './Detail';
+import Forecast from './Forecast';
+import Form from './Form';
+import appClasses from './App.css';
+
+
+import logo from './logo.svg';
+
+const App = () => (
+  <BrowserRouter>
+    <div style={{ height: '100%' }}>
+      <Route
+        exact
+        path="/"
+        render={props => (
+          <div
+            className={appClasses.container}
+            style={{ backgroundImage: 'url(\'./app/images/pattern.svg\')' }}
+          >
+            <h1 className={appClasses.homeHeader}>
+              Enter a City and State
+            </h1>
+            <Form
+              flexDirection="column"
+              onSubmit={(city) => {
+                props.history.push({ // eslint-disable-line
+                  pathname: '/forecast',
+                  search: `?city=${city}`,
+                });
+              }}
+            />
+          </div>
+        )}
+      />
+      <Route path="/forecast" component={Forecast} />
+      <Route path="/details/:day" component={Detail} />
+    </div>
+  </BrowserRouter>
+);
+
+export default App;
