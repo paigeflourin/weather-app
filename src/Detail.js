@@ -16,8 +16,8 @@ class Detail extends React.Component {
         <div className={appClasses.detailContainer}>
           <p>{state.city}</p>
           <p>{state.weather[0].description}</p>
-          <p>Low: {this.kelvinToCelcius(state.temp.min)}°C</p>
-          <p>High: {this.kelvinToCelcius(state.temp.max)}°C</p>
+          <p>Low: {state.main.temp_min}°C</p>
+          <p>High: {state.main.temp_max}°C</p>
           <p>Humidity: {state.Humidity}</p>
         </div>
       </div>

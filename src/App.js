@@ -12,19 +12,12 @@ import logo from './logo.svg';
 const App = () => (
   <BrowserRouter>
     <div style={{ height: '100%' }}>
-      <Route
-        exact
-        path="/"
+    <Route
         render={props => (
-          <div
-            className={appClasses.container}
-            style={{ backgroundImage: 'url(\'./app/images/pattern.svg\')' }}
-          >
-            <h1 className={appClasses.homeHeader}>
-              Enter a City and State
-            </h1>
+          <div className={appClasses.navbar}>
+            <h1>Weather</h1>
             <Form
-              flexDirection="column"
+              flexDirection="row"
               onSubmit={(city) => {
                 props.history.push({ // eslint-disable-line
                   pathname: '/forecast',
@@ -35,6 +28,7 @@ const App = () => (
           </div>
         )}
       />
+      
       <Route path="/forecast" component={Forecast} />
       <Route path="/details/:day" component={Detail} />
     </div>

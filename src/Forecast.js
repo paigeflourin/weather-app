@@ -3,18 +3,27 @@
 import React from 'react'; // eslint-disable-line
 import PropTypes from 'prop-types';
 import queryString from 'query-string';
-
+import ReactAnimatedWeather from 'react-animated-weather';
 import appClasses from './App.css';
+import { getIcon } from './utils/getIcon';
 
 const baseURL = 'http://api.openweathermap.org/data/2.5/';
 const APIKEY = 'e157ce238d967d8f28da1df242247ae9';
 
 export const Day = (props) => {
   const date = props.day.dt;
-  const icon = props.day.weather[0].icon;
+  const icon = getIcon(props.day.weather[0].id);
+  const animate = true;
+  const iconSize = 64;
+  const iconColor = 'black';
   return (
     <div className={appClasses.dayContainer} onClick={props.onClick} role="link" tabIndex="-1">
-      <img className={appClasses.dayIcon} src={`/app/images/weather-icons/${icon}.svg`} alt="Weather" />
+       <ReactAnimatedWeather
+            icon={icon}
+            color={iconColor}
+            size={iconSize}
+            animate={animate}
+        />
       <h2 className={appClasses.date}>{(new Date(date * 1000)).toDateString()}</h2>
     </div>
   );
@@ -52,13 +61,16 @@ class Forecast extends React.Component {
   }
 
   fetchWeather = (city) => {
+    console.log(city);
     this.setState({ city, loading: true });
     const cityHTTP = city.split(' ').join('%20');
-    fetch(`${baseURL}forecast?q=${cityHTTP}&APPID=${APIKEY}`)
+    fetch(`${baseURL}forecast?q=${cityHTTP}&APPID=${APIKEY}&units=metric&cnt=5&type=accurate`)
       .then(response => response.json())
       .then((json) => {
         this.setState({ forecast: json.list, loading: false });
       });
+      console.log("forecast");
+      console.log(this.state);
   }
 
   handleClick = (day) => {
@@ -69,8 +81,10 @@ class Forecast extends React.Component {
   }
 
   render() {
+      console.log("render");
+      console.log(this.state);
     const { city, forecast } = this.state;
-    
+
     return this.state.loading ?
       <h1 className={appClasses.forecastHeader}>Loading...</h1> :
       (
