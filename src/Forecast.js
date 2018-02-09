@@ -18,13 +18,14 @@ export const Day = (props) => {
   const iconColor = 'black';
   return (
     <div className={appClasses.dayContainer} onClick={props.onClick} role="link" tabIndex="-1">
+        <h2 className={appClasses.date}>{(new Date(date * 1000)).toDateString()} - {(new Date(date * 1000)).toLocaleTimeString()}</h2>
        <ReactAnimatedWeather
             icon={icon}
             color={iconColor}
             size={iconSize}
             animate={animate}
         />
-      <h2 className={appClasses.date}>{(new Date(date * 1000)).toDateString()}</h2>
+      
     </div>
   );
 };
